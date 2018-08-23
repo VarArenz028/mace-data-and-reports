@@ -1,0 +1,61 @@
+     
+  <div class="container">
+      <p *ngIf="!this.procedureUpdateRecord else updateProcedure">
+        Create a new record for {{this.entityName}}
+      </p> 
+      <ng-template #updateProcedure>
+        <p>
+            Edit {{this.entityName}} record Id {{this.procedureUpdateRecord.procedureId}}
+        </p>
+      </ng-template>
+
+      <form [formGroup]="myFormGroup" class="form" (ngSubmit)="submit()"> 
+        <div class="row">          
+            <div class="col-md-4">
+              <div class="form-group">
+                  <label for="procedureName">Procedure Name</label>
+                  <input formControlName="procedureName" type="text" class="form-control" placeholder="Supply Procedure Name">                                         
+              </div>
+              <div class="form-group">
+                  <label for="procedureCode">Procedure Code</label>
+                  <input formControlName="procedureCode" type="text" class="form-control" placeholder="Supply Procedure Code">
+              </div>  
+              <div class="form-group">
+                  <label for="procedureDesc">Procedure Description</label>                  
+                  <textarea formControlName="procedureDesc" class="form-control" rows="5" cols="50" placeholder="Supply Procedure Description" ></textarea>                    
+              </div>         
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="rate">Procedure Rate</label>
+                    <input formControlName="rate" type="number" class="form-control" placeholder="Supply Procedure Rate">
+                </div>  
+                <div class="form-group">
+                    <label for="ruv">RUV</label>
+                    <input formControlName="ruv" type="text" class="form-control" placeholder="Supply RUV">                                                             
+                </div>              
+                <div class="form-group">
+                    <label for="ruvAmount">RUV Amount</label>
+                    <input formControlName="ruvAmount" type="number" class="form-control" placeholder="Supply RUV Amount">
+                </div>         
+            </div>          
+        </div>                   
+      </form>
+      <!--
+      <p>Form value: {{ myFormGroup.value | json }}</p>
+      <p>Form status: {{ myFormGroup.status | json }}</p>
+      -->
+
+      <hr class="my-2">
+      <h5>REMINDER: <span class="custom-reminder">Please review your changes carefully prior to submission.</span>
+        <button type="button" class="btn btn-warning pull-right" (click)="this.notifyParent.emit({Message: 'CANCEL'});">Cancel</button>    
+        <button type="reset" class="btn btn-secondary pull-right" (click)="rebuildForm();">Reset</button>    
+        <button type="submit" class="btn btn-primary pull-right" [disabled]="!myFormGroup.valid" (click)="submit(myFormGroup.value);">Submit</button>
+      </h5>
+  </div>
+    
+  
+  <div class="container">        
+    
+  </div>

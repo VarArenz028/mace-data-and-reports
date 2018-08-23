@@ -1,0 +1,28 @@
+<div [@routerTransition]>    
+    <app-page-header [pageTitle]="this.entityName"></app-page-header>
+  
+      <div class="jumbotron jumbotron-fluid" *ngIf="!isReadData && !isCreateData">
+          <div class="container">      
+          <p class="lead">Click RETRIEVE button to load your data.</p>
+          <hr class="my-2">      
+          <p class="lead">
+              <a class="btn btn-primary btn-md" href="javascript:void(0);" role="button" (click)="readData();">Retrieve</a>
+          </p>
+          </div>
+      </div>
+  
+      <app-room-type-read *ngIf="isReadData"
+          [entityName]="this.entityName"        
+          >  
+      </app-room-type-read>  
+  
+      <app-room-type-create *ngIf="isCreateData"
+          [entityName]="this.entityName"
+          [isUpdateData]="this.isUpdateData"
+          [updateDataId]="this.updateDataId"
+          (notifyParent)="getChildNotification($event)">  
+      </app-room-type-create>      
+  </div>
+  
+  
+  

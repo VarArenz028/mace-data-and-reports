@@ -1,0 +1,11 @@
+<div [@routerTransition]>                   
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-3">Data and Reports Central</h1>
+      <p class="lead">Your central location for your Reference, Utilities and Reporting needs</p>
+      <p>version 1.0.0</p>
+      <hr class="my-2">      
+      <p *ngIf=!this.user.IsAuthenticated class="custom-reminder">You are currently not authenticated. Please <a href="javascript:void(0)" routerLink="/login">sign in.</a></p> 
+    </div>
+  </div>
+</div>

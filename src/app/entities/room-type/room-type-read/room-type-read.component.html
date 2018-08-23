@@ -1,0 +1,34 @@
+<p>List of {{this.entityName}}</p>
+
+<div class="container"> 
+    
+    <p-table [columns]="myCols" [value]="myData" [paginator]="true" [rows]="10" [loading]="loading">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                        {{data[col.field]}}
+                </td>
+                <td>
+                    <a href="javascript:void(0);">Edit</a>&nbsp;
+                    <a href="javascript:void(0);" (click)="deleteData(data.planCode);">Delete</a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+              <td [attr.colspan]="columns.length + 1">
+                  No records found!
+              </td>
+          </tr>
+        </ng-template>
+    </p-table>  
+</div>

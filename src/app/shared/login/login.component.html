@@ -1,0 +1,108 @@
+<div [@routerTransition]>
+  <div class="container">
+      <!--
+      <div class="row justify-content-center">        
+          <div class="col-md-8">
+              <div class="alert alert-danger" *ngIf="authenticationError">
+                  <strong>Failed to sign in!</strong> Please check your credentials and try again.
+              </div>
+          </div>
+          <div class="col-md-8">
+              <h4 class="modal-title">Please Sign in to get authenticated.</h4>
+              <br>
+              <form class="form" name="loginForm" role="form" (ngSubmit)="login()" #loginForm="ngForm" > 
+                  <div class="form-group">
+                      <label for="username">Login</label>
+                      <input type="text" class="form-control" name="username" id="username" placeholder="Your username"
+                      [(ngModel)]="this.user.Username" #username="ngModel" required>                     
+
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                        class="alert alert-danger">
+
+                        <div *ngIf="username.errors.required">
+                            username is required.
+                        </div>
+                        <div *ngIf="username.errors.minlength">
+                            
+                        </div>
+                        <div *ngIf="username.errors.forbiddenName">
+                            
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Your password"
+                            [(ngModel)]="this.user.Password" #password="ngModel" required>
+
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                class="alert alert-danger">
+
+                                <div *ngIf="password.errors.required">
+                                    password is required.
+                                </div>                             
+                            </div>
+                  </div>
+                  <div class="form-check">
+                      <label class="form-check-label" for="rememberMe">
+                          <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="rememberMe" checked>
+                          <span>Remember me</span>
+                      </label>
+                  </div>
+                  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Sign in</button>
+                  <button type="button" class="btn btn-secondary" routerLink="/home">Cancel</button>
+              </form>
+              <p></p>
+              <div class="alert alert-warning">
+                  <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+              </div>
+              <div class="alert alert-warning">
+                  <span>You don't have an account yet?</span>
+                  <a class="alert-link" (click)="register()">Register a new account</a>
+              </div>
+          </div>
+      </div>
+      -->
+
+      <div class="row justify-content-center">        
+          <div class="col-md-8">
+              <div class="alert alert-danger" *ngIf="authenticationError">
+                  <strong>Failed to sign in!</strong> Please check your credentials and try again.
+              </div>
+          </div>
+          <div class="col-md-8">
+              <h4 class="modal-title">Please Sign in to get authenticated.</h4>
+              <br>
+              <form [formGroup]="loginFormGroup" class="form" (ngSubmit)="login()"> 
+                  <div class="form-group">
+                      <label for="username">Login</label>
+                      <input formControlName="username" type="text" class="form-control" placeholder="Your username">                                         
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input formControlName="password" type="password" class="form-control" placeholder="Your password">
+                  </div>
+                  <div class="form-check">
+                      <label class="form-check-label" for="rememberMe">
+                          <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" checked>
+                          <span>Remember me</span>
+                      </label>
+                  </div>
+                  <button type="submit" class="btn btn-primary" [disabled]="!loginFormGroup.valid">Sign in</button>
+                  <button type="button" class="btn btn-secondary" (click)="rebuildForm();">Reset</button>
+                  <button type="button" class="btn btn-warning" routerLink="/home">Cancel</button>
+              </form>
+              <p>Form value: {{ loginFormGroup.value | json }}</p>
+              <p>Form status: {{ loginFormGroup.status | json }}</p>
+
+              <div class="alert alert-warning">
+                  <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+              </div>
+              <div class="alert alert-warning">
+                  <span>You don't have an account yet?</span>
+                  <a class="alert-link" (click)="register()">Register a new account</a>
+              </div>
+          </div>
+      </div>      
+  </div>
+</div>

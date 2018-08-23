@@ -1,0 +1,32 @@
+<div [@routerTransition]>    
+    <app-page-header [pageTitle]="this.entityName"></app-page-header>
+  
+      <div class="jumbotron jumbotron-fluid" *ngIf="!isReadData && !isCreateData">
+          <div class="container">      
+          <p class="lead">Click RETRIEVE button to load your data.</p>
+          <hr class="my-2">      
+          <p class="lead">
+              <a class="btn btn-primary btn-md" href="javascript:void(0);" role="button" (click)="readData('ALL');">Retrieve All</a>
+              <a class="btn btn-primary btn-md" href="javascript:void(0);" role="button" (click)="readData('ACTIVE');">Retrieve Active</a>
+              <a class="btn btn-primary btn-md" href="javascript:void(0);" role="button" (click)="readData('INACTIVE');">Retrieve Inactive</a>
+              <a class="btn btn-primary btn-md" href="javascript:void(0);" role="button" (click)="readData('PERMANENT');">Retrieve Permanent</a>
+              <a class="btn btn-primary btn-md" href="javascript:void(0);" role="button" (click)="readData('TEMPORARY');">Retrieve Temporary</a>
+          </p>
+          </div>
+      </div>
+  
+      <app-procedure-read *ngIf="isReadData"
+          [entityName]="this.entityName" 
+          [dataSlice]="this.myDataSlice"
+          (notifyParent)="getChildNotification($event)">            
+      </app-procedure-read>  
+  
+      <app-procedure-create *ngIf="isCreateData"
+          [entityName]="this.entityName"         
+          [procedureUpdateRecord]="this.procedure"
+          (notifyParent)="getChildNotification($event)">  
+      </app-procedure-create>      
+  </div>
+  
+  
+  

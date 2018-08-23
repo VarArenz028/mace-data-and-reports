@@ -1,0 +1,136 @@
+<p>List of {{this.entityName}}-[{{this.dataSlice}}]
+    <button type="button" class="close" aria-label="Close" (click)="closePage();">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</p>
+<div class="container"> 
+    
+    <p-table #tt [columns]="myCols" [value]="myData" [paginator]="true" [rows]="10" [loading]="loading">
+        <ng-template pTemplate="caption">
+                <i class="" style="margin: 0 0 0 0">Search</i>
+                <input type="text" pInputText size="50" placeholder="Supply your search string (i.e. Procedure Id)" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </ng-template>                
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th>Action</th>
+            </tr>
+            <!--
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <input *ngSwitchCase="'procedureId'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'procedureCode'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">                    
+                </th>
+            </tr>
+            -->
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td *ngFor="let col of columns">
+                        {{data[col.field]}}
+                </td>
+                <td>
+                    <a href="javascript:void(0);" (click)="updateData(data)">Edit</a>&nbsp;
+                    <a href="javascript:void(0);" (click)="deleteData(data.procedureId);">Delete</a>&nbsp;
+                    <a href="javascript:void(0)" (click)="isCollapsed = !isCollapsed; CollapseTableRow(data.procedureId);" [attr.aria-expanded]="!isCollapsed" title="click to see more details...">Details</a>
+                </td>
+            </tr>
+            <tr *ngIf="data.procedureId == myProcedureId" [ngbCollapse]="isCollapsed">
+                <td colspan="7">
+                    <div class="jumbotron jumbotron-fluid" style="margin: 2px 2px 2px 2px; padding: 2px 2px 2px 2px;">
+                        <div class="container">     
+                            <p class="lead">Complete Details of Procedure Id {{data.procedureId}}/{{data.dataSourceId}}</p>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">                                
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">Procedure Description</td>
+                                                <td>{{data.procedureDesc}}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">RUV</td>
+                                                <td>{{data.ruv}}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">RUV Amount</td>
+                                                <td>{{data.ruvAmount | number}}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Updated Date</td>
+                                                <td>{{data.updatedDate}}</td>                                        
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </div>
+                                <div class="col-md-4">
+                                    <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">                                
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">Status</td>                                                
+                                                <td><span [ngClass]="data.statusId ? 'badge badge-success' : 'badge badge-danger'" >{{data.statusId ? "Active" : "Inactive"}}</span></td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">Temporary</td>
+                                                <td>{{(data.dataSourceId | slice:0:2) == "TP" ? "TEMPORARY" : "PERMANENT" }}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Updated By</td>
+                                                <td>{{data.updatedBy}}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Updated Date</td>
+                                                <td>{{data.updatedDate}}</td>                                        
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </div>
+                                <div class="col-md-4">
+                                    <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">                                
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">Created By</td>
+                                                <td>{{data.createdBy}}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">Created Date</td>
+                                                <td>{{data.createdDate}}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">Updated By</td>
+                                                <td>{{data.updatedBy}}</td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" style="font-weight: bold;">Updated Date</td>
+                                                <td>{{data.updatedDate}}</td>                                        
+                                            </tr>
+                                        </tbody>
+                                    </table>  
+                                </div>
+                            </div>
+                            <hr class="my-2">                            
+                            <p class="lead">
+                                <a *ngIf=!data.statusId class="btn btn-primary btn-sm" href="javascript:void(0);" role="button">Activate</a>
+                                <a *ngIf=data.statusId class="btn btn-primary btn-sm" href="javascript:void(0);" role="button">Deactivate</a>                                
+                                <a *ngIf='(data.dataSourceId | slice:0:2) == "TP"' class="btn btn-primary btn-sm" href="javascript:void(0);" role="button">Make Perment</a>
+                                <a *ngIf='(data.dataSourceId | slice:0:2) != "TP"' class="btn btn-primary btn-sm" href="javascript:void(0);" role="button">Make Temporary</a>
+                                <a class="btn btn-primary btn-sm" href="javascript:void(0);" role="button" (click)="isCollapsed = !isCollapsed; CollapseTableRow(data.procedureId);" [attr.aria-expanded]="!isCollapsed">Hide Details</a>
+                            </p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+              <td [attr.colspan]="columns.length + 1">
+                  No records found!
+              </td>
+          </tr>
+        </ng-template>
+    </p-table>  
+</div>

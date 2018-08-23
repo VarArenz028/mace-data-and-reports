@@ -1,0 +1,23 @@
+<p *ngIf=!isUpdateData>
+    Create a new record for {{this.entityName}}
+</p>
+
+<p *ngIf=isUpdateData>
+    Edit record Id {{this.updateDataId}} of {{this.entityName}}
+</p>
+
+<div class="container">
+    <p>data entry fields will be here</p>
+</div>
+
+<hr class="my-2">
+
+<div class="container">
+    <h5>REMINDER:
+        <span class="custom-reminder">Please review your changes carefully prior to submission.</span>
+        <button type="button" class="btn btn-warning pull-right" (click)="this.notifyParent.emit({Message: 'CANCEL'});">Cancel</button>
+        <button type="reset" class="btn btn-secondary pull-right">Reset</button>
+        <button type="submit" class="btn btn-primary pull-right" (click)="submit('test');">Submit</button>
+    </h5>
+</div>
+

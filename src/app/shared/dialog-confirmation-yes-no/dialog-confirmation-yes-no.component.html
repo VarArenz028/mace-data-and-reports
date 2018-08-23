@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{this.headerText}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            (click)="activeModal.close('Close click')">&times;</button>
+</div>
+<div class="modal-body">    
+    <p>{{this.bodyText}}</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="this.activeModal.close('YES');">
+        <span class="fa fa-check"></span>&nbsp;<span>Yes</span>
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="activeModal.close('Close click')">
+        <span class="fa fa-remove"></span>&nbsp;<span>No</span>
+    </button>
+</div>

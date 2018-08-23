@@ -1,0 +1,11 @@
+<ol class="breadcrumb" style="border-bottom: 1px solid; margin-bottom: 2px; padding-bottom: 5px;">                        
+    <!--
+    <li class="breadcrumb-item">
+        <i class="fa fa-dashboard"></i> <a href="Javascript:void(0)" routerLink="/home">Home</a>
+    </li>
+    -->
+    <li class="breadcrumb-item active"><i class="fa {{icon}}"></i><strong> {{pageTitle}}</strong></li>
+    &nbsp;&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;
+    <a href="javascript:void(0)" (click)="showCreateForm()"><i class="fa fa-plus-square"></i> Create</a>&nbsp;
+    <a href="javascript:void(0)" (click)="readData()"><i class="fa fa-refresh"></i> Retrieve</a>    
+</ol>

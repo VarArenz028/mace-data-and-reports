@@ -1,0 +1,58 @@
+<div [@routerTransition]>    
+    <app-page-header [pageTitle]="this.entityName"></app-page-header>
+  
+    <div class="jumbotron jumbotron-fluid" *ngIf="!isReadData && !isCreateData">
+      <div class="container">      
+        <p class="lead">Click RETRIEVE button to load your data.</p>
+        <hr class="my-2">      
+        <p class="lead">
+          <a class="btn btn-primary btn-md" href="javascript:void(0);" role="button" (click)="readData();">Retrieve</a>
+        </p>
+      </div>
+    </div>
+  
+    <app-hospital-procedure-create *ngIf="isCreateData"
+        [entityName]="this.entityName"
+        [isUpdateData]="this.isUpdateData"
+        [updateDataId]="this.updateDataId"
+        (notifyParent)="getChildNotification($event)">  
+    </app-hospital-procedure-create>  
+  
+    <p *ngIf=isReadData>List of {{this.entityName}}</p>
+    <div class="container" *ngIf=isReadData>    
+        
+        <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">
+          <thead class="thead-inverse|thead-default">
+            <tr>
+              <th>ID</th>
+              <th>Header1</th>
+              <th>Header2</th>
+              <th>Header3</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">1</td>
+                <td>Data1a</td>
+                <td>Data2a</td>
+                <td>Data3a</td>
+                <td>
+                    <a href="javascript:void(0)" (click)="update(1);">Edit</a>&nbsp;
+                    <a href="javascript:void(0)" (click)="delete(1);">Delete</a> 
+                </td>            
+              </tr>
+              <tr>
+                <td scope="row">2</td>
+                <td>Data1b</td>
+                <td>Data2b</td>
+                <td>Data3b</td>
+                <td>
+                    <a href="javascript:void(0)" (click)="update(2);">Edit</a>&nbsp;
+                    <a href="javascript:void(0)" (click)="delete(2);">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>      
